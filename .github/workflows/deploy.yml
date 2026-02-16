@@ -1,12 +1,20 @@
-name: Deploy to Production
+name: CI/CD Pipeline
 
 on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
   push:
     branches:
-      - main   # Trigger when code is pushed to main
+      - main
+      - dev
 
 jobs:
-  build-and-deploy:
+
+  # ------------- CI JOB -------------
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +29,37 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Project
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test --if-present
+
+      - name: Build Check
         run: npm run build
 
-      - name: Deploy Step
-        run: echo "Deploy your project here"
+  # ------------- CD JOB (DEV → STAGING) -------------
+  deploy-staging:
+    needs: ci
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel Staging
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }}
+
+  # ------------- CD JOB (MAIN → PRODUCTION) -------------
+  deploy-production:
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel Production
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}

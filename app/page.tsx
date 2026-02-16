@@ -13,7 +13,7 @@ export default function Home() {
        <p className="text-sm text-gray-500 dark:text-gray-500">
           Edit <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">app/page.tsx</code> to get started.
         </p>
-        
+        Hii
       </div>
     </div>
   );
