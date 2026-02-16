@@ -10,7 +10,10 @@ export default function Home() {
         <p className="text-lg text-gray-600 dark:text-gray-400">
           This is your new Next.js app. Start building something amazing!
         </p>
-       
+       <p className="text-sm text-gray-500 dark:text-gray-500">
+          Edit <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">app/page.tsx</code> to get started.
+        </p>
+        
       </div>
     </div>
   );
