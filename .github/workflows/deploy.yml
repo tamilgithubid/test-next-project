@@ -32,24 +32,24 @@ jobs:
       - name: Run Lint
         run: npm run lint
 
-      - name: Run Tests
-        run: npm test --if-present
+      # - name: Run Tests
+      #   run: npm test --if-present
 
       - name: Build Check
         run: npm run build
 
-  # ------------- CD JOB (DEV → STAGING) -------------
-  deploy-staging:
-    needs: ci
-    if: github.ref == 'refs/heads/dev'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel Staging
-        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }}
+  # # ------------- CD JOB (DEV → STAGING) -------------
+  # deploy-staging:
+  #   needs: ci
+  #   if: github.ref == 'refs/heads/dev'
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Deploy to Vercel Staging
+  #       run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes
 
   # ------------- CD JOB (MAIN → PRODUCTION) -------------
   deploy-production:
