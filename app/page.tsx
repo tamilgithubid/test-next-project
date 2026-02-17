@@ -11,7 +11,7 @@ export default function Home() {
           This is your new Next.js app. Start building something amazing!
         </p>
        <p className="text-sm text-gray-500 dark:text-gray-500">
-          Edit <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">app/page.tsx</code> to get started.
+        HII
         </p>
    <div className="mt-6">
     Hello World
